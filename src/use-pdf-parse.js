@@ -9,7 +9,7 @@ const options = {}; /* see below */
 pdfExtract.extract(pdfPath, options, (err, data) => {
   if (err) return console.log(err);
   console.log(data);
-  fs.writeFile('file.txt', JSON.stringify(data.pages[0]), err => {
+  fs.writeFile('pdf.js-extract.txt', JSON.stringify(data.pages[0]), err => {
     if (err) {
       console.error(err);
       return;
@@ -18,8 +18,14 @@ pdfExtract.extract(pdfPath, options, (err, data) => {
   });
 });
 
-// const pdfData = fs.readFileSync(pdfPath);
+const pdfData = fs.readFileSync(pdfPath);
 
-// pdfParse(pdfData).then(function(data) {
-//   console.log(data.text);
-// });
+pdfParse(pdfData).then(function(data) {
+  fs.writeFile('pdf-parse.txt', JSON.stringify(data.text), err => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    console.log('File saved successfully!');
+  });
+});
